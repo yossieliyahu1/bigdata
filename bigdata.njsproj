@@ -48,12 +48,17 @@
     <Content Include="..\..\..\..\..\..\..\mongodb\run-db.bat">
       <Link>mongo\run-db.bat</Link>
     </Content>
+    <Content Include="..\..\..\..\..\..\..\mongodb\run-dbshell.bat">
+      <Link>mongo\run-dbshell.bat</Link>
+    </Content>
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\error.jade" />
+    <Content Include="views\newuser.jade" />
+    <Content Include="views\userlist.jade" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />

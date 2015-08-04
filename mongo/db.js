@@ -5,8 +5,10 @@
 // >db.users.save({_id : 1});
 
 var mongo = require('mongodb');
+var ObjectId = mongo.ObjectID;
 var monk = require('monk');
 var db = monk('localhost:27017/bigdata');
+
 
 
 // db - show the current db
@@ -48,20 +50,72 @@ var db = monk('localhost:27017/bigdata');
  */
 
 
+var u1 = {
+    "_id" : ObjectId("5202b481d2184d390cbf6eca"),
+    "username" : "testuser1",
+    "email" : "testuser1@testdomain.com"
+};
+var u2 = {
+    "_id" : ObjectId("5202b49ad2184d390cbf6ecb"),
+        "username" : "testuser2",
+        "email" : "testuser2@testdomain.com"
+}
+var u3 = {
+    "_id" : ObjectId("5202b49ad2184d390cbf6ecc"),
+        "username" : "testuser3",
+        "email" : "testuser3@testdomain.com"
+}
+
 
 var DB = {
     
-    init : function () {
+    userlist : function (req, clbk) {
         
         var collection = db.get('users');
+        collection.find({}, {}, function (e, docs) {
+            clbk(docs);
+        });
+    },
+    
+    adduser : function (req, clbk) {
+        // Set our internal DB variable
         
-        collection.insert({ _id : 2, name : "test" });
+        // Get our form values. These rely on the "name" attributes
+        var userName = req.body.username;
+        var userEmail = req.body.useremail;
         
+        // Set our collection
+        var collection = db.get('users');
+        
+        // Submit to the DB
+        collection.insert({
+            "username" : userName,
+            "email" : userEmail
+        }, function (err, doc) {
+            if (err) {
+                // If it failed, return error
+                clbk("There was a problem adding the information to the database.");
+            }
+            else {
+                clbk("");
+            }
+        });    
+    },
 
+    init : function () {
+        /*
+        var collection = db.get('users');
+
+        // db.user.insert({ "username" : "testuser1", "email" : "testuser1@testdomain.com" })
+        collection.insert(u1);
+        collection.insert(u2);
+        collection.insert(u3);
+        
+        // db.user.find().pretty()
         collection.find({}, {}, function (e, docs) {
             console.log(docs);
         });
-
+        */
     },
 
     insert : function (db, collection, document /* the record to add to the db */, callback) {
@@ -164,5 +218,8 @@ var DB = {
 
 
 };
+
+
+DB.init();
 
 module.exports = DB;
