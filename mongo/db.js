@@ -10,6 +10,8 @@ var monk = require('monk');
 var db = monk('localhost:27017/bigdata');
 
 
+var _ = require("underscore");
+
 
 // db - show the current db
 // show collections - show all collections in the current db
@@ -67,8 +69,110 @@ var u3 = {
 }
 
 
-var DB = {
+
+
+var DB__ = {
+
+    insert : function (collection, data, callback) {
+        var collection = db.get(collection);
+        collection.insert(data, function (err, doc) {
+            console.log("------------------ " + err);
+            callback(err || "success");
+        });  
+    },
+
+    update : function (collection, data, callback) {
+        var collection = db.get(collection);
+        collection.find({ _id : data._id }, function (e, doc) {
+            if (e) {
+                callback(e);
+            }
+            else {
+                var doc_ = JSON.parse(doc);
+                for (var entry in data) {
+                    doc_[entry] = data[entry];
+                }
+                collection.save(doc_);
+            }
+        });
+    },
+
+    select : function (collection, filter, fields, callback) {
+        var collection = db.get(collection);
+        collection.find(filter || {}, fields || {}, function (e, docs) {
+            callback(e || docs);
+        });
+    }
+};
+
+
+
+
+
+var UserDataDB = {
+
+    /*
+    var user = {
+        
+        _id : "hrdid",
+        ct : "country",
+        pr : "product",
+        data : "collected data"
+    }
+    */
+
+    format : function (data) {
+        var obj = {};
+        _.each(data, function (value, key) {
+            obj[key] = decodeURIComponent(value);
+        });
+        
+        return obj;
+    },
     
+    insert : function (req, callback) {
+        try {
+            debugger; debugger;
+            console.log("req.body.hrdid " + req.body.hrdid);
+            var obj = {
+                _id : req.body.hrdid || ObjectId(),
+                ct : req.body.ct,
+                pr : req.body.pr,
+                data : req.body.data
+            }
+
+            DB__.insert("userdata", this.format(obj), callback);
+        }
+        catch (e) { callback(e); }
+    },
+    
+    update : function (req, callback) {
+        try {
+            
+            var obj = {
+                _id : req.body.hrdid,
+                data : req.body.data
+            }
+
+            DB__.update("userdata", this.format(obj), callback);
+        }
+        catch (e) { callback(e); }
+    },
+    
+    select : function (req, callback) {
+        try {
+            debugger; debugger;
+            var filter = {};
+            var fields = {};
+            
+            console.log("userlist::select");
+
+            DB__.select("userdata", filter, fields, callback);
+        }
+        catch (e) { console.log(e); callback(e); }
+    },
+    
+
     userlist : function (req, clbk) {
         
         var collection = db.get('users');
@@ -118,7 +222,7 @@ var DB = {
         */
     },
 
-    insert : function (db, collection, document /* the record to add to the db */, callback) {
+    insert2 : function (db, collection, document /* the record to add to the db */, callback) {
         
         /*
          
@@ -179,7 +283,7 @@ var DB = {
         // > db.foo.find()
     },
 
-    update : function (db, collection, data) {
+    update2 : function (db, collection, data) {
 
         // var document = db[collection].findOne({ _id : data.id }); -- search EVERY document 
 
@@ -193,13 +297,13 @@ var DB = {
 
     },
 
-    del : function (db, collection, data) {
+    del2 : function (db, collection, data) {
 
     },
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    gt : function (db, collection, filter, fields) {
+    gt2 : function (db, collection, filter, fields) {
         
         // find can return a cursor wich is convenient and useful to work with 
 
@@ -220,6 +324,9 @@ var DB = {
 };
 
 
-DB.init();
+module.exports = {
 
-module.exports = DB;
+    UserDataDB : UserDataDB
+
+
+};

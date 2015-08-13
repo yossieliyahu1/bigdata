@@ -3,6 +3,8 @@
 block content
     h1= title
     form#formAddUser(name="adduser",method="post",action="/adduser")
-        input#inputUserName(type="text", placeholder="username", name="username")
-        input#inputUserEmail(type="text", placeholder="useremail", name="useremail")
+        input#_id(type="text", placeholder="userid", name="_id")
+        input#ct(type="text", placeholder="country", name="ct")
+        input#pr(type="text", placeholder="product", name="pr")
+        input#data(type="text", placeholder="data", name="data")
         button#btnSubmit(type="submit") submit

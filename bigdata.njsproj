@@ -36,6 +36,7 @@
     <Compile Include="app.js" />
     <Compile Include="mongo\db-init.js" />
     <Compile Include="mongo\db.js" />
+    <Compile Include="public\js\bootstrap-table.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="bin\www" />
@@ -52,8 +53,14 @@
       <Link>mongo\run-dbshell.bat</Link>
     </Content>
     <Content Include="package.json" />
+    <Content Include="public\css\bootstrap-table.css" />
+    <Content Include="public\home.html" />
     <Content Include="public\stylesheets\style.styl" />
+    <Content Include="views\error.html" />
+    <Content Include="views\userlist.html" />
+    <Content Include="views\users.html" />
     <Content Include="README.md" />
+    <Content Include="views\home.html" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\error.jade" />
@@ -64,8 +71,8 @@
     <Folder Include="bin\" />
     <Folder Include="mongo\" />
     <Folder Include="public\" />
-    <Folder Include="public\images\" />
-    <Folder Include="public\javascripts\" />
+    <Folder Include="public\css\" />
+    <Folder Include="public\js\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />

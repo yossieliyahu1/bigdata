@@ -14,9 +14,8 @@ The layer between the DB and the UI is in "./bigdata/mongo" folder
 
 
 Current pages: 
-localhost:3000/userlist
-localhost:3000/newuser
-localhost:3000/adduser
+localhost:3221/userlist
+localhost:3221/newuser
 
 
 ** app is build using http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/

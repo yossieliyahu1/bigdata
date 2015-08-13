@@ -1,6 +1,4 @@
 node_modules
-
 .ntvs_analysis.dat
 dist/*
-
 src/js/vendor/*

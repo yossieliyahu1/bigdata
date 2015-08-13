@@ -6,4 +6,7 @@ block content
     ul
         each user, i in userlist
             li
-                a(href="mailto:#{user.email}")= user.username
+                p #{user._id}
+                p #{user.ct}
+                p #{user.pr}
+                p #{user.data}

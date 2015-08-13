@@ -1,11 +1,17 @@
-﻿var express = require('express');
+﻿
+var express = require('express');
 var router = express.Router();
 
 var db = require('../mongo/db');
 
 /* GET home page. */
+router.get('/db', function (req, res) {
+    console.log("db");
+    res.render('../public/home.html');
+});
+
 router.get('/', function (req, res) {
-    res.render('index', { title: 'Express' });
+    res.render('home', {});
 });
 
 /* GET Hello World page. */
@@ -19,12 +25,25 @@ router.get('/helloworld', function (req, res) {
 
 /* GET Userlist page. */
 router.get('/userlist', function (req, res) {
+    /*
     db.userlist(req, function (docs) { 
         res.render('userlist', {
             "userlist" : docs
         });
     });
+    */
     
+   console.log("userlist");
+    db.UserDataDB.select(req, function (docs) {
+        console.log(docs);
+        res.jsonp(docs);
+        /*
+        res.render('userlist', {
+            "userlist" : docs
+        });
+        */
+    });
+
 });
 
 
@@ -35,18 +54,10 @@ router.get('/newuser', function (req, res) {
 
 /* POST to Add User Service */
 router.post('/adduser', function (req, res) {
-    
-    db.adduser(req, function (err) {
-        if (err) {
-            res.render('error', {
-                "message" : err
-            });
-        }
-        else {
-            res.redirect("userlist");
-        }
+    db.UserDataDB.insert(req, function (err) {
+        console.log(err);
+        res.redirect("userlist");
     });
-    
    
 });
 
