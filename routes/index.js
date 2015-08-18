@@ -61,4 +61,13 @@ router.post('/adduser', function (req, res) {
    
 });
 
+router.post('/removeuser', function (req, res) {
+    console.log("remove user");
+    db.UserDataDB.removeUser(req, function (err) {
+        console.log(err);
+        res.redirect("userlist");
+    });
+   
+});
+
 module.exports = router;

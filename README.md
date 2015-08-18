@@ -13,12 +13,8 @@ This will open an app window that allow you to interact with the DB.
 The layer between the DB and the UI is in "./bigdata/mongo" folder
 
 
-Current pages: 
-localhost:3221/userlist
-localhost:3221/newuser
-
 
 ** app is build using http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/
 
 
-
+2do - next step: implement "remove"

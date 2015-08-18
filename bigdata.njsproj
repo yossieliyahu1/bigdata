@@ -36,6 +36,7 @@
     <Compile Include="app.js" />
     <Compile Include="mongo\db-init.js" />
     <Compile Include="mongo\db.js" />
+    <Compile Include="mongo\lrn.js" />
     <Compile Include="public\js\bootstrap-table.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\users.js" />
